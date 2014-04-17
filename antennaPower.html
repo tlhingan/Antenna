@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Antenna Calculator</title>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         
+         <link rel="stylesheet" href="/Javascript/jquery-ui-1.10.3.custom/css/blitzer/jquery-ui-1.10.3.custom.min.css">
+         <style type="text/css">
+             #div-container-toggle {
+                 text-align:center;
+                 padding-left: 0.5%;
+                 padding-right: 0.5%;
+                 height: 100%;
+                 margin:0 auto;
+                 margin-right:0;
+             }
+         </style>
+         <script type="text/javascript" src="/Javascript/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js"></script>
+         <script type="text/javascript" src="/Javascript/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+         <link rel="stylesheet" type="text/css" href="/Javascript/Jit/Examples/css/base.css"/>
+         <link rel="Stylesheet" type="text/css" href="/Javascript/Jit/Examples/css/ForceDirected.css" />
+         <script type="text/javascript" src="/Javascript/radpy.js"></script>
+         <script type="text/javascript" src="/Javascript/Jit/jit.js"></script> 
+         <script type="text/javascript" src="/Javascript/comminglingGraph.js"></script>
+         <script type="text/javascript" src="/Javascript/Enums.js"></script>     
+         <script type="text/javascript" src="/Javascript/Ajax.js"></script>
+         <script type="text/javascript" src="/Javascript/SearchMethods.js"></script>
+         <script type="text/javascript" src="/Javascript/FormEvents.js"></script>
+         <script type="text/javascript" src="/Javascript/Dom.js"></script>
+         <script type="text/javascript" src="/Javascript/BDOForms.js"></script>
+         <script type="text/javascript" src="/Javascript/GridView.js"></script>
+         <script type="text/javascript" src="/Javascript/GenericPopup.js"></script>
+         <script type="text/javascript" src="/Javascript/DocumentPopup.js"></script>
+         <script type="text/javascript" src="/Javascript/TableTop.js"></script>
+</head>
+<body>
+      <nav>
+             <div><a id="home" href="/">Home</a></div>
+             <ul id="secondary">
+                 <li><a href="#">Account Information</a></li>
+                 <li><a id="menu-button" href="#">Show Menu</a></li>
+             </ul>
+             <ul id="nav-top">
+                 <li><a>Data Management</a>
+                     <ul>
+                         <li><a href="/EntityManager.html?entity=Document">Documents</a></li>
+                     </ul>
+                 </li>
+                 <li><a>Configuration</a>
+                     <ul>
+                         <li><a href="/EntityManager.html?entity=FieldDefinition">Field Definitions</a></li>
+                         <li><a href="/EntityManager.html?entity=DocumentDefinition">Document Definitions</a></li>
+                     </ul>
+                 </li>
+                 <li><a>Demos</a>
+                     <ul>
+                         <li><a href="/Demos/TableTop.html">Tabletop</a></li>
+                         <li><a href="#">ILC</a></li>
+                     </ul>
+                 </li>
+                 <li><a href="#">Lab Write</a></li>
+                 <li><a href="#">Dean Test</a></li>
+                 <li><a>tlhIngan's Play Area</a>
+                     <ul>
+                          <li><a href="antennaPower.html">Antenna Power Calculator</a></li>
+                          <li><a href="bromine.html">Bromine</a></li>
+                     </ul>
+                 </li>
+
+             </ul>
+         </nav>
+<table>
+<form>
+<tr><td>Antenna Power:</td><td><input type="text" id="antennaPower" value="3000"> centidBm</td></tr>
+<tr><td>Percentage of Maximum Power:</td><td><input type="text" id="PercentageMaxPower" value="100"> %</td></tr>
+<tr><td><button type="button" onClick="calculatePercentage(this.form)">Calculate Percentage</button></td>
+<td><button type="button" onClick="calculatePower(this.form)">Calculate Power</button></td></tr>
+</form>
+</table>
+<script type="text/javascript">
+  function calculatePercentage(form)
+  {
+    form.PercentageMaxPower.value = Math.pow(10, ((form.antennaPower.value-3000)/1000))*100;
+  }
+  function calculatePower(form)
+  {
+    form.antennaPower.value = 1000*(Math.log(form.PercentageMaxPower.value/100)/Math.log(10))+3000;
+  }
+$('document').ready(function()
+{
+    $('#antennaPower').on('keyup', function()
+    {
+       calculatePercentage($('form')[0]);
+    });
+});
+$('document').ready(function()
+{
+    $('#PercentageMaxPower').on('keyup', function()
+    {
+       calculatePower($('form')[0]);
+    });
+});
+</script>
+
+</body>
+    </html>
